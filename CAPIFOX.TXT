@@ -1,0 +1,105 @@
+    CapiFox v 1.2 Dokumentation
+    Gltig fr Voll- und Testversion.
+    (C) 1996 OK>Soft Oliver Kocks
+    -------------------------------------------------
+
+    Inhaltsverzeichnis:
+
+    1 Lizenzbestimmungen
+      1.1 Copyright
+      1.2 Garantie / Gew„hrleistung / Haftung
+      1.3 Nutzungslizenz
+          1.3.1 Testversion
+          1.3.2 Vollversion
+    2 Einsatzziel von CapiFox
+    3 Aufbau von CapiFox
+
+    1.1 Copyright
+
+        CapiFox ist ein Programm zur Nutzung des ISDN
+        in Verbindung mit FoxPro.
+
+        Der Begriff Programm bezieht sich auf das ausfhrbare Programm
+        sowie auf alle zugeh”rigen Dokumentations-, Hilfs-
+        und Beispieldateien.
+
+        Der Autor Oliver Kocks besitzt das Urheberrecht am
+        Programm CapiFox.
+        Das Programm steht unter urheberrechtlichem Schutz durch die
+        Urheber- und Handelsgesetze des Landes in dem es genutzt
+        wird. 
+        
+        Mit der Nutzung des Programmes anerkennt der Nutzer die
+        Punkte 1.2 - 1.5.
+
+        Alle Urheberrechte, Warenzeichen und sonstige Rechte
+        anderer Hersteller werden hiermit anerkannt.
+
+        
+    1.2 Garantie / Gew„hrleistung / Haftung
+
+        Der Autor haftet nicht fr Sch„den jeglicher Art darin
+        eingeschlossen Verm”genssch„den, Sachsch„den, entstandene
+        Verbindlichkeiten gegenber Dritten, Folgesch„den und alle
+        anderen Nachteile die aus der Benutzung des Programms CapiFox
+        entstehen. Sind Sie mit diesem totalen Gew„hrleistungs-
+        und Haftungsausschluá nicht einverstanden, oder ist dieser
+        totale Gew„hrleistungs- und Haftungsausschluá am Einsatzort
+        des Programmes nicht erlaubt, so drfen Sie Capifox nicht
+        einsetzen.
+
+        Kurzum: Sie benutzen CapiFox zu 100% auf eigenes Risiko.
+
+    1.3 Nutzungs-Lizenz
+
+        1.3.1 Testversion
+
+        Die Testversion ist eine 100% funktionsf„hige Vollversion
+        ohne Einschr„nkungen. Sie unterscheidet sich von der Voll-
+        version lediglich durch den Hinweis, daá es sich um die
+        Testversion handelt.
+        Diese Testversion darf beliebig weiterkopiert werden, wenn
+        dafr keine die Aufwendungen des Kopierens berschreitende
+        Ertr„ge erzielt werden.
+        Die Testversion darf fr 30 Tage getestet werden. Darber
+        hinaus darf die Testversion nicht mehr verwendet werden und
+        muá durch die Vollversion ersetzt oder alternativ mssen
+        alle installierten Kopien gel”scht werden.
+
+        CapiFox IST KEINE FREEWARE!
+
+        1.3.2 Vollversion
+
+        Die Vollversion darf vom Lizenznehmer zeitlich unbeschr„nkt
+        auf beliebig vielen Rechnern genutzt werden. Eine Weitergabe
+        an andere Benutzer ist nur als Teil einer anderen Anwendung
+        erlaubt. Die Weitergabe dieser Dokumentation ist nicht erlaubt.
+        Die Nutzung ist nur in Verbindung der anderen Anwendung erlaubt,
+        bei darber hinausgehender Nutzung von CapiFox muá der
+        Drittanwender eine eigene Lizenz erwerben.
+
+
+      2 Einsatzziel von CapiFox
+
+        CapiFox soll es erm”glichen, von FoxPro aus Datenbertragungen
+        ber ISDN durchzufhren.
+        Prinzipiell ist auch die Nutzung durch jede andere Entwicklungs-
+        umgebung m”glich. Sie muá lediglich Low-Level Dateizugriffe
+        bereitstellen. CapiFox ist jedoch prim„r fr FoxPro entwickelt
+        und auch nur in Verbindung mit FoxPro getestet worden. Der
+        Einsatz mit anderen Entwicklungsumgebungen bleibt
+        Ihrer Phantasie berlassen...
+
+
+      3 Aufbau von CapiFox
+
+        CapiFox besteht aus zwei separaten C-Programmen die den kompletten
+        Zugriff auf das ISDN bernehmen.
+        Die zwei Programme sind der CapiServer und der CapiClient. Wie
+        die Namen schon andeuten, wird der CapiServer auf dem Rechner
+        installiert, der als Datenserver dienen soll. Der CapiClient
+        wird auf dem Rechner eingesetzt, von dem aus der Zugriff auf
+        den Server via ISDN m”glich sein soll.
+
+        šber zwei Informationsdateien wird der Datenaustausch mit der
+        Hostanwendung durchgefhrt.
