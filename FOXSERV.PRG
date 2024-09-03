@@ -1,6 +1,6 @@
 **********************
 * CAPI-Server Beispielprogramm
-* (C) OK>Soft Oliver Kocks 1996
+* (C) Oliver Krainz 1996-2024
 *
 
 * Konstanten 
@@ -31,7 +31,7 @@ REGIONAL l_antwort, l_cmd, l_pos, l_datei, l_long, l_groesse
   *
   RUN /N capiserv.exe
 
-  * Auf Bestätigung des Capiservers warten.
+  * Auf BestÃ¤tigung des Capiservers warten.
   *
   l_antwort = ""
 
@@ -101,19 +101,19 @@ REGIONAL l_antwort, l_cmd, l_pos, l_datei, l_long, l_groesse
         ? "Angeforderte Datei:"
         ? l_datei
         
-        * Hier könnten jetzt zum Beispiel ZugangsChecks
-        * oder ähnliches durchgeführt werden.
+        * Hier kÃ¶nnten jetzt zum Beispiel ZugangsChecks
+        * oder Ã¤hnliches durchgefÃ¼hrt werden.
         *
-        * Wird der Download nicht gestattet, muß als
-        * Dateigröße 0 übergeben werden. Der CapiServer
+        * Wird der Download nicht gestattet, muss als
+        * DateigrÃ¶ÃŸe 0 Ã¼bergeben werden. Der CapiServer
         * schickt dann eine entsprechende Antwort.
         
-        * Wir geben an den Server die Kennung für
-        * download zurück mit dem vorher übergebenen Dateinamen.
-        * Dieser könnte auch geändert werden, z.B. wenn
-        * der Server für den Dateitransfer eine Datei aus einem
+        * Wir geben an den Server die Kennung fÃ¼r
+        * download zurÃ¼ck mit dem vorher Ã¼bergebenen Dateinamen.
+        * Dieser kÃ¶nnte auch geÃ¤ndert werden, z.B. wenn
+        * der Server fÃ¼r den Dateitransfer eine Datei aus einem
         * anderen Verzeichnis nehmen soll.
-        * Hinzu kommt die Größe der Datei als long-Wert.
+        * Hinzu kommt die GrÃ¶ÃŸe der Datei als long-Wert.
         *
         = ADIR( a_tmp, l_datei )
         l_groesse = long_to_chr( a_tmp(2) )
@@ -132,7 +132,7 @@ REGIONAL l_antwort, l_cmd, l_pos, l_datei, l_long, l_groesse
         
           * Dateitransferfortschritt steht als long-Zahl
           * an den Stellen 3-6.
-          * Achtung! Die Zahl muß erst in FoxPro von
+          * Achtung! Die Zahl muss erst in FoxPro von
           * der long-Darstellung umgerechnet werden!
           *
           l_long = chr_to_long( SUBSTR( l_antwort, 3, 4 ) )
@@ -145,7 +145,7 @@ REGIONAL l_antwort, l_cmd, l_pos, l_datei, l_long, l_groesse
       *
       CASE l_cmd == c_res_disconnect
       
-        ? "Habe Disconnect erhalten, ich mache Schluß."
+        ? "Habe Disconnect erhalten, ich mache Schluss."
         
     ENDCASE
 
@@ -172,11 +172,11 @@ REGIONAL l_filehandle, l_endwait, l_antwort, l_lastread
   
   DO WHILE ( !l_endwait )
   
-    * InfoaustauschDatei öffnen.
+    * InfoaustauschDatei Ã¶ffnen.
     *
     l_filehandle = FOPEN("capiserv.inf")
     
-    * Konnte sie geöffnet werden?
+    * Konnte sie geÃ¶ffnet werden?
     *
     IF ( l_filehandle != -1 )
 
@@ -194,7 +194,7 @@ REGIONAL l_filehandle, l_endwait, l_antwort, l_lastread
       
       
       * Ist die Datei nicht empty und steht irgendwas
-      * für FoxPro drin? (Kennzeichen = "F")
+      * fÃ¼r FoxPro drin? (Kennzeichen = "F")
       *
       IF !EMPTY(l_antwort) AND (LEFT(l_antwort, 1) = "F")
         * Jetzt Datei leeren.
@@ -212,8 +212,8 @@ REGIONAL l_filehandle, l_endwait, l_antwort, l_lastread
     ENDIF
   ENDDO
   
-  * DateiInhalt zurückgeben, abzüglich der Kennung
-  * für FoxPro ("F")
+  * DateiInhalt zurÃ¼ckgeben, abzÃ¼glich der Kennung
+  * fÃ¼r FoxPro ("F")
   *
   
 RETURN SUBSTR(l_antwort, 2, LEN(l_antwort) - 1)
@@ -227,7 +227,7 @@ RETURN SUBSTR(l_antwort, 2, LEN(l_antwort) - 1)
 PROCEDURE write_cmd_capiserver 
 PARAMETER par_command, par_kennung
   
-  * Kennung für CapiServer ergänzen.
+  * Kennung fÃ¼r CapiServer ergÃ¤nzen.
   *
   IF EMPTY( par_kennung )
     par_command = "S" + par_command + CHR(0)
@@ -245,11 +245,11 @@ PARAMETER par_command, par_kennung
   
   DO WHILE (!l_endwait)
 
-    * Versuchen Datei zu öffnen.
+    * Versuchen Datei zu Ã¶ffnen.
     *  
     l_filehandle = FCREATE("capiserv.inf")
     
-    * Öffnen erfolgreich?
+    * Ã¶ffnen erfolgreich?
     *
     IF ( l_filehandle != -1 )
     
@@ -263,9 +263,9 @@ PARAMETER par_command, par_kennung
     ELSE
     
       * Ansonsten etwas warten, nach
-      * 5 Versuchen ist aber Schluß.
+      * 5 Versuchen ist aber Schluss.
       * Kann theoretisch nie vorkommen,
-      * aber man weiß ja nie...
+      * aber man weiÃŸ ja nie...
       *
       IF l_try < 5
         = INKEY(1)
@@ -294,15 +294,15 @@ PROCEDURE set_settings
   *
   SET CONSOLE ON
 
-  * Keine gelöschten Sätze berücksichtigen.
+  * Keine gelÃ¶schten SÃ¤tze berÃ¼cksichtigen.
   *
   SET DELETED ON
 
-  * Exakte-Übereinstimmung bei Vergleichen ausschalten.
+  * Exakte-Ãœbereinstimmung bei Vergleichen ausschalten.
   *
   SET EXACT OFF
 
-  * Nach erfolgloser Suche ähnlichsten Satz NICHT anspringen.
+  * Nach erfolgloser Suche Ã¤hnlichsten Satz NICHT anspringen.
   *
   SET NEAR OFF
 
@@ -322,7 +322,7 @@ PROCEDURE set_settings
   *
   SET BELL OFF
  
-  * Keine Schutzabfragen ob Dateien überschrieben werden sollen.
+  * Keine Schutzabfragen ob Dateien Ã¼berschrieben werden sollen.
   *
   SET SAFETY OFF
  

@@ -1,7 +1,7 @@
 //-----------------------
 // Capi Client Program
 //
-// (C) OK-Soft Oliver Kocks 1996
+// (C) Oliver Krainz 1996-2024
 //
 //-----------------------
 #include <windows.h>
@@ -16,26 +16,26 @@ static far char g_servernr[20] = "";
 static HANDLE gh_data_buffer = 0;
 static LPSTR  gp_data_buffer = NULL;
 
-char      g_app_name[10];              // Enthält für das gesamte Programm den Namen der Anwendung.
+char      g_app_name[10];              // EnthÃ¤lt fÃ¼r das gesamte Programm den Namen der Anwendung.
 HINSTANCE g_instance;                  // Instance-Handle der Anwendung.
 HWND      g_main_window;               // Window-Handle des Anwendungsfensters.
 HANDLE    g_main_font        = NULL;   // Font-Handle
 HANDLE    g_cright_font      = NULL;   // Font-Handle Copyright Text
-HANDLE    g_therm_rect_pen   = NULL;   // Handle für Pen-Thermometerumriß
-HANDLE    g_therm_rect_brush = NULL;   // Handle für Brush-Thermometer
-char      g_datei[100];                // Dateinamen für Bildschirmausgabe
-char      g_status[100];               // Für Ausgabe Status
+HANDLE    g_therm_rect_pen   = NULL;   // Handle fÃ¼r Pen-Thermometerumriss
+HANDLE    g_therm_rect_brush = NULL;   // Handle fÃ¼r Brush-Thermometer
+char      g_datei[100];                // Dateinamen fÃ¼r Bildschirmausgabe
+char      g_status[100];               // FÃ¼r Ausgabe Status
 int       g_prozent = 0;               // Prozentfortschritt Thermometer
-long      g_size = 0;                  // Zur Bestückung Thermometer
+long      g_size = 0;                  // Zur BestÃ¼ckung Thermometer
 
 LPSTR     gp_rcvd_msg = NULL;
 BOOL      g_ende_schleife = FALSE, g_online = FALSE;
 
 WORD      g_plci, g_ncci, g_indication_nr;
 
-BYTE      g_akt_aktion = 0;        // Enthält aktuelle Aktion
-fstream   f_datei;                 // Stream für InfoAustauschdatei
-fstream   f_download;              // Stream für Download
+BYTE      g_akt_aktion = 0;        // EnthÃ¤lt aktuelle Aktion
+fstream   f_datei;                 // Stream fÃ¼r InfoAustauschdatei
+fstream   f_download;              // Stream fÃ¼r Download
 DWORD     g_download_akt_bytes;    // Anzahl der bisherigen DownloadBytes
 DWORD     g_download_ges_bytes;    // Anzahl der insgesamt zu downloadenden Bytes.
 BYTE      g_download_ziel[100];    // Zieldatei von Download
@@ -60,7 +60,7 @@ BYTE      g_download_ziel[100];    // Zieldatei von Download
 #define c_res_error      "e"
 #define c_res_disconnect "d"
 
-#define c_res_download   'l'      // Kein String weil nicht über schreibe_fox_info ausgegeben.
+#define c_res_download   'l'      // Kein String weil nicht Ã¼ber schreibe_fox_info ausgegeben.
 
 #define c_akt_download     0x01
 #define c_akt_download_req 0x02
@@ -102,7 +102,7 @@ void wait_x_sekunden(int par_sekunden)
 //------------------
 // Der Message-Handler.
 // Wird von Windows bei jedem Event aufgerufen
-// und muß die Events dann an die entsprechenden
+// und muss die Events dann an die entsprechenden
 // Funktionen weiterleiten.
 //
 LRESULT CALLBACK message_handler(HWND par_window, UINT par_message,
@@ -125,8 +125,8 @@ LRESULT CALLBACK message_handler(HWND par_window, UINT par_message,
 	  wmPaint(par_window, par_message, par_wparam, par_lparam);
 	  break; 
 
-        // Alle nicht explizit abgefangenen Botschaften müssen
-        // über DefWindowProc ans Betriebssystem zur Standard-
+        // Alle nicht explizit abgefangenen Botschaften mÃ¼ssen
+        // Ã¼ber DefWindowProc ans Betriebssystem zur Standard-
         // verarbeitung weitergeleitet werden.
 	//
 	default: 
@@ -140,7 +140,7 @@ LRESULT CALLBACK message_handler(HWND par_window, UINT par_message,
 //---------------
 
 //-----------------
-// Funktion für WindowsMessage
+// Funktion fÃ¼r WindowsMessage
 // WM_CREATE.
 // Hier werden vor Aufbau des Hauptfensters die Font-
 // und Farbeneinstellungen vorgenommen.
@@ -152,7 +152,7 @@ void wmCreate(void)
   // Font-Data des Fensters definieren.
   //
 
-  // Höhe.
+  // HÃ¶he.
   //
   l_main_font.lfHeight = 15;
 
@@ -161,7 +161,7 @@ void wmCreate(void)
   l_main_font.lfWidth = 10;
 
   // Winkel zwischen Fluchtvektor und X-Achse
-  // der Bildschirmoberfläche.
+  // der BildschirmoberflÃ¤che.
   //       
   l_main_font.lfEscapement = 0;
 
@@ -169,7 +169,7 @@ void wmCreate(void)
   //    
   l_main_font.lfOrientation = 0;
 
-  // Schriftstärke (in gedruckten Punkt pro 1000).
+  // SchriftstÃ¤rke (in gedruckten Punkt pro 1000).
   //
   l_main_font.lfWeight = 300;
 
@@ -197,7 +197,7 @@ void wmCreate(void)
   //
   l_main_font.lfClipPrecision = CLIP_DEFAULT_PRECIS;
 
-  // Ausgabequalität (bei Umsetzung virtuelle Schrift => physikalische)
+  // AusgabequalitÃ¤t (bei Umsetzung virtuelle Schrift => physikalische)
   //
   l_main_font.lfQuality = PROOF_QUALITY;
 
@@ -211,14 +211,14 @@ void wmCreate(void)
 
   g_main_font = CreateFontIndirect( &l_main_font );
 
-  // Font für Copyright-Text erstellen.
+  // Font fÃ¼r Copyright-Text erstellen.
   //
 
   // Schriftart.
   //
   strcpy(l_main_font.lfFaceName,"Arial");
 
-  // Höhe.
+  // HÃ¶he.
   //
   l_main_font.lfHeight = 11;
 
@@ -228,11 +228,11 @@ void wmCreate(void)
 
   g_cright_font = CreateFontIndirect( &l_main_font );
 
-  // Pen für Thermometerumriß erstellen.
+  // Pen fÃ¼r Thermometerumriss erstellen.
   //
   g_therm_rect_pen = CreatePen( PS_SOLID, 1, RGB( 128, 128, 128 ) );
 
-  // Brush für Thermometer erstellen.
+  // Brush fÃ¼r Thermometer erstellen.
   //
   g_therm_rect_brush = CreateSolidBrush( RGB( 0, 128, 0 ) );
 
@@ -255,7 +255,7 @@ void wmPaint(HWND par_window, UINT par_message,
   RECT l_background;
   HANDLE l_old_pen, l_old_brush;
   int l_size;   
-  char c_copyright[] = "WAMOS! Online-Dienst Ralph Klement";
+  char c_copyright[] = "Capifox (C) Oliver Krainz";
 
   // Ausgabe beginnen.
   //
@@ -301,7 +301,7 @@ void wmPaint(HWND par_window, UINT par_message,
 
   if (g_akt_aktion == c_akt_download)
   {
-    // Thermometerumriß zeichnen.
+    // Thermometerumriss zeichnen.
     //
     l_old_brush = SelectObject( l_hdc, GetStockObject( NULL_BRUSH ) );
     l_old_pen   = SelectObject( l_hdc, g_therm_rect_pen );
@@ -391,7 +391,7 @@ int anmeldung(void)
 //-------------------
 
 //--------------------
-// Server anwählen.
+// Server anwÃ¤hlen.
 //
 int call_server(void)
 {
@@ -415,11 +415,11 @@ int win_message_schleife(void)
   MSG l_msg;
 
   // PeekMessage (liefert WindowsBotschaften die
-  // für die Anwendung bestimmt sind) so lange
+  // fÃ¼r die Anwendung bestimmt sind) so lange
   // aufrufen, wie noch Nachrichten in der
   // Warteschlange sind.
   // Jede Nachricht dann einfach weitergeben und
-  // aus der Warteschlange löschen (PM_REMOVE).
+  // aus der Warteschlange lÃ¶schen (PM_REMOVE).
   // Interessant ist nur WM_QUIT um die Anwendung
   // zu beenden.
   //
@@ -605,7 +605,7 @@ void handle_data_b3_indication(void)
 
 
   // Weitergabe der Daten in
-  // Abhängigkeit von der aktuellen
+  // AbhÃ¤ngigkeit von der aktuellen
   // Aktion.
   //
   switch (g_akt_aktion)
@@ -631,7 +631,7 @@ void handle_data_b3_indication(void)
        starte_download(&l_cmdline[0]);
        break;
 
-     // Läuft zur Zeit ein Download?
+     // LÃ¤uft zur Zeit ein Download?
      //
      case c_akt_download:
        handle_download(l_p_data, l_len);
@@ -646,7 +646,7 @@ void handle_data_b3_indication(void)
 
 
 //--------------------
-// Bestätigung Data Request.
+// BestÃ¤tigung Data Request.
 //
 void handle_data_b3_confirmation(void)
 {
@@ -666,7 +666,7 @@ void handle_disconnect_b3_indication(void)
 
    l_info = hole_WORD(gp_rcvd_msg + 10);
 
-   // Planmäßiger Abbau oder Abbau durch Fehler?
+   // PlanmÃ¤ÃŸiger Abbau oder Abbau durch Fehler?
    //
    if ( (l_info != NO_ERROR) && (g_online == FALSE) )
      g_ende_schleife = TRUE;
@@ -687,7 +687,7 @@ void handle_disconnect_b3_indication(void)
 //-----------------------
 
 //-----------------------
-// Bestätigung über gewünschten B3-Disconnect.
+// BestÃ¤tigung Ã¼ber gewÃ¼nschten B3-Disconnect.
 //
 void handle_disconnect_b3_confirmation(void)
 {
@@ -716,7 +716,7 @@ void handle_disconnect_indication(void)
   l_info = hole_WORD(gp_rcvd_msg + 10);
   l_msg_nr = hole_WORD(gp_rcvd_msg + 6);
 
-  // Planmäßiger Abbau oder Abbau durch Fehler?
+  // PlanmÃ¤ÃŸiger Abbau oder Abbau durch Fehler?
   //
   if ( !g_online )
   {
@@ -730,7 +730,7 @@ void handle_disconnect_indication(void)
 
       case 0x348a:
 	schreibe_fox_info( strcat( c_res_disconnect,
-				   "ERRORIhre B-Kanäle sind belegt." )
+				   "ERRORIhre B-KanÃ¤le sind belegt." )
 			   , 0 );
         break;
 
@@ -824,7 +824,7 @@ void capi_schleife(void)
     switch (l_capi_combi_command)
     {
 
-      // Verbindungsanfrage => Bestätigung.
+      // Verbindungsanfrage => BestÃ¤tigung.
       //
       case c_connect_confirmation:
 
@@ -838,19 +838,19 @@ void capi_schleife(void)
 	handle_connect_active_indication();
 	break;
 
-      // Bestätigung Schicht 2 Protokolleinstellung.
+      // BestÃ¤tigung Schicht 2 Protokolleinstellung.
       //
       case c_select_b2_prot_confirmation:
 	handle_select_b2_protocol_confirmation();
         break;
 
-      // Bestätigung Schicht 3 Protokolleinstellung.
+      // BestÃ¤tigung Schicht 3 Protokolleinstellung.
       //
       case c_select_b3_prot_confirmation:
 	handle_select_b3_protocol_confirmation();
         break;
 
-      // Schicht 3 Anfrage => Bestätigung.
+      // Schicht 3 Anfrage => BestÃ¤tigung.
       //
       case c_connect_b3_confirmation:
 
@@ -871,14 +871,14 @@ void capi_schleife(void)
 	handle_data_b3_indication();
 	break;
 
-      // Bestätigung Data-Request.
+      // BestÃ¤tigung Data-Request.
       //
       case c_data_b3_confirmation:
 
 	handle_data_b3_confirmation();
 	break;
 
-      // Abbau Schicht 3 => Bestätigung.
+      // Abbau Schicht 3 => BestÃ¤tigung.
       //
       case c_disconnect_b3_confirmation:
 
@@ -892,7 +892,7 @@ void capi_schleife(void)
 	handle_disconnect_b3_indication();
 	break;
 
-      // Abbau der Verbindung => Bestätigung.
+      // Abbau der Verbindung => BestÃ¤tigung.
       //
       case c_disconnect_confirmation:
 	break;
@@ -1044,13 +1044,13 @@ void starte_download(char * par_p_cmdline)
 {
   char l_ch;
 
-  // Dateinamen überlesen, wird im Moment
+  // Dateinamen Ã¼berlesen, wird im Moment
   // nicht verwendet.
   //
   while ( (l_ch = *(par_p_cmdline)) > 0 )
     par_p_cmdline++;
 
-  // Zeiger auf Größenangabe bewegen.
+  // Zeiger auf GrÃ¶ÃŸenangabe bewegen.
   //
   par_p_cmdline++;
 
@@ -1059,18 +1059,18 @@ void starte_download(char * par_p_cmdline)
 
   // Fenster mit Thermometer anzeigen.
   // Aber nur, wenn mehr als 10000 Bytes
-  // übertragen werden.
+  // Ã¼bertragen werden.
   //
   if ( g_size > 10000 )
   {
     g_prozent = 0;
-    strcpy( &g_status[0], "Dateiübertragung..." );
+    strcpy( &g_status[0], "DateiÃ¼bertragung..." );
 
 
     ShowWindow(g_main_window, SW_SHOWNORMAL);
   }
 
-  // Größe = 0?
+  // GrÃ¶ÃŸe = 0?
   // => Download wurde verweigert.
   //
   if (g_download_ges_bytes == 0)
@@ -1079,21 +1079,21 @@ void starte_download(char * par_p_cmdline)
     //
     schreibe_fox_info("ERRORDownload verweigert.", 0);
 
-    // Aktionstatus zurücksetzen.
+    // Aktionstatus zurÃ¼cksetzen.
     //
     g_akt_aktion = 0;
   }
   else
   {
-    // Zieldatei öffnen und leeren.
+    // Zieldatei Ã¶ffnen und leeren.
     //
     f_download.open(&g_download_ziel[0], ios::binary | ios::out | ios::trunc);
 
-    // Aktionsstatus ändern.
+    // Aktionsstatus Ã¤ndern.
     //
     g_akt_aktion = c_akt_download;
 
-    // Gelesene Bytes zurücksetzen.
+    // Gelesene Bytes zurÃ¼cksetzen.
     //
     g_download_akt_bytes = 0x00L;
 
@@ -1148,7 +1148,7 @@ void handle_download(LPSTR par_p_data, int par_len)
 //------------------------
 
 //-----------------------
-// FoxMessageSchleife prüft auf Commandos
+// FoxMessageSchleife prÃ¼ft auf Commandos
 // von FoxPro.
 //
 int fox_message_schleife(void)
@@ -1161,7 +1161,7 @@ int fox_message_schleife(void)
 
   f_datei.open("capiclie.ins", ios::binary | ios::in);
 
-  // Datei kann nicht geöffnet werden?
+  // Datei kann nicht geÃ¶ffnet werden?
   // => gerade in Bearbeitung von FoxPro.
   //
   if (f_datei.fail())
@@ -1195,7 +1195,7 @@ int fox_message_schleife(void)
   f_datei.open("capiclie.ins", ios::binary | ios::out | ios::trunc);
   f_datei.close();
 
-  // Wenn es sich um Daten für das Frontend
+  // Wenn es sich um Daten fÃ¼r das Frontend
   // handelt diese einfach weitergeben.
   //
   if ( l_ch == 'D' )
@@ -1240,7 +1240,7 @@ void init_window_class(HINSTANCE par_instance)
   //
   cl_window_class.hInstance     = par_instance;
 
-  // Funktion der Anwendung die das Messagehandling übernimmt.
+  // Funktion der Anwendung die das Messagehandling Ã¼bernimmt.
   //
   cl_window_class.lpfnWndProc   = message_handler;
 
@@ -1255,7 +1255,7 @@ void init_window_class(HINSTANCE par_instance)
   //
   cl_window_class.hIcon         = NULL;
 
-  // Welches Menu soll standardmäßig bei Fenster dieser Anwendung
+  // Welches Menu soll standardmÃ¤ÃŸig bei Fenster dieser Anwendung
   // verwendet werden.
   // In unserem Fall gar keins.
   //
@@ -1267,12 +1267,12 @@ void init_window_class(HINSTANCE par_instance)
   cl_window_class.hbrBackground = COLOR_WINDOW + 1;
 
   // Den Klassenstil festlegen.
-  // Wir wählen Fenster ohne Close-Option.
+  // Wir wÃ¤hlen Fenster ohne Close-Option.
   //
   cl_window_class.style         = CS_HREDRAW | CS_VREDRAW;
 
   // Bei den folgenden zwei Komponenten kann man
-  // zusätzliche Bytes zur Klassendefinition resevieren.
+  // zusÃ¤tzliche Bytes zur Klassendefinition resevieren.
   //
   cl_window_class.cbClsExtra    = 0;
   cl_window_class.cbWndExtra    = 0;
@@ -1303,7 +1303,7 @@ void init_app_window(HINSTANCE par_instance)
 		    CW_USEDEFAULT,           // x-Koordinate des Fensters
 		    0,                       // y-Koordinate oder Fensterdarstellung
                     350,                     // Breite des Fensters
-                    120,                      // Höhe
+                    120,                      // HÃ¶he
                     NULL,                    // Dieses Fenster hat kein parent Window
                     NULL,                    // Es wird das Klassenmenu benutzt.
                     par_instance,            // Der Erschaffer
@@ -1320,7 +1320,7 @@ void init_app_window(HINSTANCE par_instance)
 
 //--------------------
 // Anwendung initialisieren.
-// Der mühsame Teil.
+// Der mÃ¼hsame Teil.
 //
 void init_application(HINSTANCE par_instance)
 {
@@ -1345,7 +1345,7 @@ void init_application(HINSTANCE par_instance)
 //------------------------
 // Main().
 // Wird beim Starten der Anwendung zuerst gerufen.
-// Wird als den Pascal-Aufrufkonventionen folgend definiert (muß so sein).
+// Wird als den Pascal-Aufrufkonventionen folgend definiert (muss so sein).
 //
 // Parameter:
 // par_instance      - Das eindeutige Instanzen-Handle der Anwendung.
@@ -1353,10 +1353,10 @@ void init_application(HINSTANCE par_instance)
 //                     Ist 0 bei der ersten Instanz.
 // par_p_cmdline     - Ein char far* auf die Command line die die Anwendung
 //                     gestartet hat.
-// par_cmd_show      - Gewünschter Window-Status (normal, minimiert etc)
+// par_cmd_show      - GewÃ¼nschter Window-Status (normal, minimiert etc)
 //
-// Rückgabewert:
-// Integerwert	     - Von Windows nicht benutzt. Z.B. fürs debuggen.
+// RÃ¼ckgabewert:
+// Integerwert	     - Von Windows nicht benutzt. Z.B. fÃ¼rs debuggen.
 //
 #pragma argsused
 int PASCAL WinMain(HINSTANCE par_instance, HINSTANCE par_last_instance,

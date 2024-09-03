@@ -17,7 +17,7 @@
 #define combi_cmd_subcmd(cmd, subcmd) ((WORD) cmd << 8 | (WORD) subcmd); 
 
 
-// Längen
+// LÃ¤ngen
 //
 #define c_size_app_buffer             20000
 #define c_capi_msg_len                180
