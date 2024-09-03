@@ -10,7 +10,7 @@ static LPSTR  gp_app_buffer = NULL;   // Pointer Empfangsbuffer
 static WORD   g_app_id = 0;           // ID der App im Capi
 static HANDLE gh_capi_msg = 0;        // Handle Messagestruktur
 static LPSTR  gp_capi_msg = NULL;     // Pointer Messagestruktur
-static WORD   g_req_msg_nummer = 1;   // Laufende Messagenummer für Requests
+static WORD   g_req_msg_nummer = 1;   // Laufende Messagenummer fÃ¼r Requests
 static BYTE   g_isdn_controller = 0;  // ISDN-Controller
 
 
@@ -52,7 +52,7 @@ void release_capidll(void)
 
 //------------------
 // Alle von den Capi-Funktionen
-// belegten Speicherblöcke
+// belegten SpeicherblÃ¶cke
 // wieder freigeben.
 //
 void free_capi_memory(void)
@@ -245,10 +245,10 @@ int capi_anmeldung(void)
   // Capi-Funktion zum Anmelden der Applikation rufen.
   // Parameter:
   // 1) Zeiger auf Empfangsbuffer
-  // 2) Anzahl der möglichen Messages vor Überlauf
-  // 3) Anzahl der möglichen Schicht-3 Verbindungen
-  // 4) Anzahl der maximal an die Anwendung meldbare Datenblöcke
-  // 5) Maximale Größe B3-Daten
+  // 2) Anzahl der mÃ¶glichen Messages vor Ãœberlauf
+  // 3) Anzahl der mÃ¶glichen Schicht-3 Verbindungen
+  // 4) Anzahl der maximal an die Anwendung meldbare DatenblÃ¶cke
+  // 5) Maximale GrÃ¶ÃŸe B3-Daten
   //
   g_app_id = my_API_REGISTER(gp_app_buffer, 10, 1, 4, 2048);
 
@@ -267,10 +267,10 @@ int aktiviere_anrufbeantwortung(void)
 {
   int l_status;
 
-  // CAPI_Message bestücken.
+  // CAPI_Message bestÃ¼cken.
   //
 
-  // 1. Gesamtlänge
+  // 1. GesamtlÃ¤nge
   //
   schreibe_WORD(gp_capi_msg, c_laenge_listen_request);
 
@@ -305,7 +305,7 @@ int aktiviere_anrufbeantwortung(void)
   schreibe_WORD(gp_capi_msg + 13, 0x03ff);
 
   // 9. Maske welche Dienste bedient werden sollen.
-  // 0x0080 = Nur Datenübertragung 64 kbits/s.
+  // 0x0080 = Nur DatenÃ¼bertragung 64 kbits/s.
   //
   schreibe_WORD(gp_capi_msg + 15, 0x0080); 
 
@@ -325,10 +325,10 @@ int deaktiviere_anrufbeantwortung(void)
 {
   int l_status;
 
-  // CAPI_Message bestücken.
+  // CAPI_Message bestÃ¼cken.
   //
 
-  // 1. Gesamtlänge
+  // 1. GesamtlÃ¤nge
   //
   schreibe_WORD(gp_capi_msg, c_laenge_listen_request);
 
@@ -363,7 +363,7 @@ int deaktiviere_anrufbeantwortung(void)
   schreibe_WORD(gp_capi_msg + 13, 0x00);
 
   // 9. Maske welche Dienste bedient werden sollen.
-  // 0x0080 = Nur Datenübertragung 64 kbits/s.
+  // 0x0080 = Nur DatenÃ¼bertragung 64 kbits/s.
   //
   schreibe_WORD(gp_capi_msg + 15, 0x00); 
 
@@ -389,10 +389,10 @@ int sende_connect_request(LPSTR par_fon_nr)
 
   _fstrcpy(l_fon_nr, par_fon_nr);
 
-  // CAPI_Message bestücken.
+  // CAPI_Message bestÃ¼cken.
   //
 
-  // 1. Gesamtlänge
+  // 1. GesamtlÃ¤nge
   //
   schreibe_WORD(gp_capi_msg, c_laenge_connect_request + 1 + l_laenge_zielnr);
 
@@ -416,12 +416,12 @@ int sende_connect_request(LPSTR par_fon_nr)
   //
   schreibe_BYTE(gp_capi_msg + 8, g_isdn_controller); 
 
-  // 7. Gewünschter B-Kanal.
+  // 7. GewÃ¼nschter B-Kanal.
   // 0x83 = beliebiger Kanal.
   //
   schreibe_BYTE(gp_capi_msg + 9, (unsigned char) 0x83);
 
-  // 8. Welcher Informationen sollen angezeígt werden.
+  // 8. Welcher Informationen sollen angezeigt werden.
   // 01 = Date.
   //
   schreibe_DWORD(gp_capi_msg + 10, 0xc00000001);
@@ -441,7 +441,7 @@ int sende_connect_request(LPSTR par_fon_nr)
   //
   schreibe_BYTE(gp_capi_msg + 16, 0x30);
 
-  // 12. Länge der ZielNr.
+  // 12. LÃ¤nge der ZielNr.
   //
   schreibe_BYTE(gp_capi_msg + 17, l_laenge_zielnr + 1);
 
@@ -474,10 +474,10 @@ int select_b2_protocol(WORD par_plci)
 
   int l_status;
 
-  // CAPI_Message bestücken.
+  // CAPI_Message bestÃ¼cken.
   //
 
-  // 1. Gesamtlänge
+  // 1. GesamtlÃ¤nge
   //
   schreibe_WORD(gp_capi_msg, c_laenge_select_b2_protocol);
 
@@ -501,16 +501,16 @@ int select_b2_protocol(WORD par_plci)
   //
   schreibe_WORD(gp_capi_msg + 8, par_plci); 
 
-  // 7. Gewünschtes Protokoll
+  // 7. GewÃ¼nschtes Protokoll
   // 0x01 = X75
   //
   schreibe_BYTE(gp_capi_msg + 10, 0x01);
 
-  // 8. Länge DLPD = Data-Link-Protocol-Description
+  // 8. LÃ¤nge DLPD = Data-Link-Protocol-Description
   //
   schreibe_BYTE(gp_capi_msg + 11, 0x03);
 
-  // 9. Neue Maximale Länge Datenpaket.
+  // 9. Neue Maximale LÃ¤nge Datenpaket.
   //
   schreibe_WORD(gp_capi_msg + 12, 2048);
 
@@ -550,10 +550,10 @@ int select_b3_protocol(WORD par_plci)
 
   int l_status;
 
-  // CAPI_Message bestücken.
+  // CAPI_Message bestÃ¼cken.
   //
 
-  // 1. Gesamtlänge
+  // 1. GesamtlÃ¤nge
   //
   schreibe_WORD(gp_capi_msg, c_laenge_select_b3_protocol );
 
@@ -577,12 +577,12 @@ int select_b3_protocol(WORD par_plci)
   //
   schreibe_WORD(gp_capi_msg + 8, par_plci); 
 
-  // 7. Gewünschtes Protokoll
+  // 7. GewÃ¼nschtes Protokoll
   // 0x04 = Transparent
   //
   schreibe_BYTE(gp_capi_msg + 10, 0x04);
 
-  // 8. Länge NCPD = Network-Control-Protocol-Description
+  // 8. LÃ¤nge NCPD = Network-Control-Protocol-Description
   //
   schreibe_BYTE(gp_capi_msg + 11, 0x00);
 
@@ -603,10 +603,10 @@ int sende_connect_b3_request(WORD par_plci)
 {
   int l_status;
 
-  // CAPI_Message bestücken.
+  // CAPI_Message bestÃ¼cken.
   //
 
-  // 1. Gesamtlänge
+  // 1. GesamtlÃ¤nge
   //
   schreibe_WORD(gp_capi_msg, c_laenge_connect_b3_request);
 
@@ -631,7 +631,7 @@ int sende_connect_b3_request(WORD par_plci)
   schreibe_WORD(gp_capi_msg + 8, par_plci); 
 
   // 7. PLCI NCPI_LEN
-  // Länge der Zusatzangaben für NCPI = 00
+  // LÃ¤nge der Zusatzangaben fÃ¼r NCPI = 00
   //
   schreibe_BYTE(gp_capi_msg + 10, 0x00);
 
@@ -668,10 +668,10 @@ int aktiviere_schicht3_beantwortung(WORD par_plci)
 {
   int l_status;
 
-  // CAPI_Message bestücken.
+  // CAPI_Message bestÃ¼cken.
   //
 
-  // 1. Gesamtlänge
+  // 1. GesamtlÃ¤nge
   //
   schreibe_WORD(gp_capi_msg, c_laenge_listenb3_request);
 
@@ -714,10 +714,10 @@ int sende_connect_response(WORD par_plci, WORD par_indication_nr)
 
   int l_status;
 
-  // CAPI_Message bestücken.
+  // CAPI_Message bestÃ¼cken.
   //
 
-  // 1. Gesamtlänge
+  // 1. GesamtlÃ¤nge
   //
   schreibe_WORD(gp_capi_msg, c_laenge_connect_response);
 
@@ -756,16 +756,16 @@ int sende_connect_response(WORD par_plci, WORD par_indication_nr)
 //-------------------------
 
 //---------------------
-// Schicht 1 aktiv Meldung bestätigen.
+// Schicht 1 aktiv Meldung bestÃ¤tigen.
 //
 int bestaetige_schicht_1_aktiv(WORD par_plci, WORD par_indication_nr)
 {
   int l_status;
 
-  // CAPI_Message bestücken.
+  // CAPI_Message bestÃ¼cken.
   //
 
-  // 1. Gesamtlänge
+  // 1. GesamtlÃ¤nge
   //
   schreibe_WORD(gp_capi_msg, c_laenge_connect_active_rsp);
 
@@ -801,16 +801,16 @@ int bestaetige_schicht_1_aktiv(WORD par_plci, WORD par_indication_nr)
 //----------------------------------
 
 //-------------------
-// Bestätigung Schicht 3 Anfrage senden.
+// BestÃ¤tigung Schicht 3 Anfrage senden.
 //
 int sende_connect_b3_response(WORD par_ncci, WORD par_msg_nr)
 {
   int l_status;
 
-  // CAPI_Message bestücken.
+  // CAPI_Message bestÃ¼cken.
   //
 
-  // 1. Gesamtlänge
+  // 1. GesamtlÃ¤nge
   //
   schreibe_WORD(gp_capi_msg, c_laenge_connectb3_response);
 
@@ -838,7 +838,7 @@ int sende_connect_b3_response(WORD par_ncci, WORD par_msg_nr)
   //
   schreibe_BYTE(gp_capi_msg + 10, 0x00);
 
-  // 8. NCPI Länge (??)
+  // 8. NCPI LÃ¤nge (??)
   //
   schreibe_BYTE(gp_capi_msg + 11, 0x00);
 
@@ -853,16 +853,16 @@ int sende_connect_b3_response(WORD par_ncci, WORD par_msg_nr)
 //-----------------------
 
 //---------------------
-// Schicht 3 aktiv Meldung bestätigen.
+// Schicht 3 aktiv Meldung bestÃ¤tigen.
 //
 int bestaetige_schicht_3_aktiv(WORD par_ncci, WORD par_indication_nr)
 {
   int l_status;
 
-  // CAPI_Message bestücken.
+  // CAPI_Message bestÃ¼cken.
   //
 
-  // 1. Gesamtlänge
+  // 1. GesamtlÃ¤nge
   //
   schreibe_WORD(gp_capi_msg, c_laenge_connect_b3_active_rsp);
 
@@ -898,16 +898,16 @@ int bestaetige_schicht_3_aktiv(WORD par_ncci, WORD par_indication_nr)
 //----------------------------------
 
 //---------------------
-// Schicht 3 Abbau bestätigen.
+// Schicht 3 Abbau bestÃ¤tigen.
 //
 int bestaetige_schicht_3_abbau(WORD par_ncci, WORD par_indication_nr)
 {
   int l_status;
 
-  // CAPI_Message bestücken.
+  // CAPI_Message bestÃ¼cken.
   //
 
-  // 1. Gesamtlänge
+  // 1. GesamtlÃ¤nge
   //
   schreibe_WORD(gp_capi_msg, c_laenge_disconnect_b3_rsp);
 
@@ -948,10 +948,10 @@ int sende_disconnect_b3_request(WORD par_ncci)
 {
   int l_status;
 
-  // CAPI_Message bestücken.
+  // CAPI_Message bestÃ¼cken.
   //
 
-  // 1. Gesamtlänge
+  // 1. GesamtlÃ¤nge
   //
   schreibe_WORD(gp_capi_msg, c_laenge_disconnect_b3_req);
 
@@ -992,10 +992,10 @@ int sende_disconnect_request(WORD par_plci)
 {
   int l_status;
 
-  // CAPI_Message bestücken.
+  // CAPI_Message bestÃ¼cken.
   //
 
-  // 1. Gesamtlänge
+  // 1. GesamtlÃ¤nge
   //
   schreibe_WORD(gp_capi_msg, c_laenge_disconnect_request);
 
@@ -1036,16 +1036,16 @@ int sende_disconnect_request(WORD par_plci)
 //--------------------------
 
 //------------------------
-// Verbindungsabbau bestätigen.
+// Verbindungsabbau bestÃ¤tigen.
 //
 int bestaetige_verbindungsabbau(WORD par_plci, WORD par_indication_nr)
 {
   int l_status;
 
-  // CAPI_Message bestücken.
+  // CAPI_Message bestÃ¼cken.
   //
 
-  // 1. Gesamtlänge
+  // 1. GesamtlÃ¤nge
   //
   schreibe_WORD(gp_capi_msg, c_laenge_disconnect_response);
 
@@ -1086,10 +1086,10 @@ int sende_daten_request(WORD par_ncci, LPSTR par_daten, WORD par_len, BYTE par_b
 {
   int l_status;
 
-  // CAPI_Message bestücken.
+  // CAPI_Message bestÃ¼cken.
   //
 
-  // 1. Gesamtlänge
+  // 1. GesamtlÃ¤nge
   //
   schreibe_WORD(gp_capi_msg, c_laenge_data_request);
 
@@ -1113,7 +1113,7 @@ int sende_daten_request(WORD par_ncci, LPSTR par_daten, WORD par_len, BYTE par_b
   //
   schreibe_WORD(gp_capi_msg + 8, par_ncci);
 
-  // 7. Länge der Daten.
+  // 7. LÃ¤nge der Daten.
   //
   schreibe_WORD(gp_capi_msg + 10, par_len);
 
@@ -1121,12 +1121,12 @@ int sende_daten_request(WORD par_ncci, LPSTR par_daten, WORD par_len, BYTE par_b
   //
   schreibe_DWORD(gp_capi_msg + 12, par_daten);
 
-  // 9. Blocknummer (wird später von der Confirmation
+  // 9. Blocknummer (wird spÃ¤ter von der Confirmation
   // benutzt).
   //
   schreibe_BYTE(gp_capi_msg + 16, par_block);
 
-  // 10. Flags für Zusatzdienste. Im Moment nicht benutzt.
+  // 10. Flags fÃ¼r Zusatzdienste. Im Moment nicht benutzt.
   //
   schreibe_WORD(gp_capi_msg + 17, 0x0000);
 
@@ -1140,16 +1140,16 @@ int sende_daten_request(WORD par_ncci, LPSTR par_daten, WORD par_len, BYTE par_b
 //------------------
 
 //------------------------
-// Datenempfang bestätigen.
+// Datenempfang bestÃ¤tigen.
 //
 int bestaetige_datenempfang(WORD par_ncci, WORD par_indication_nr, BYTE par_block_nr)
 {
   int l_status;
 
-  // CAPI_Message bestücken.
+  // CAPI_Message bestÃ¼cken.
   //
 
-  // 1. Gesamtlänge
+  // 1. GesamtlÃ¤nge
   //
   schreibe_WORD(gp_capi_msg, c_laenge_data_response);
 
